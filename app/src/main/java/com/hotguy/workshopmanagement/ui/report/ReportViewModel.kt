@@ -37,8 +37,8 @@ class ReportViewModel @Inject constructor(
         _uiState.update { ReportUiState.Loading }
         viewModelScope.launch {
             getSummaryReportUseCase()
-                .onSuccess { _uiState.update { ReportUiState.Success(it) } }
-                .onFailure { _uiState.update { ReportUiState.Error(it.message ?: "Error al cargar el reporte") } }
+                .onSuccess { report -> _uiState.update { ReportUiState.Success(report) } }
+                .onFailure { e -> _uiState.update { ReportUiState.Error(e.message ?: "Error al cargar el reporte") } }
         }
     }
 }

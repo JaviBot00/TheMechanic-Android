@@ -10,9 +10,11 @@ import com.hotguy.workshopmanagement.domain.model.Vehicle
 import com.hotguy.workshopmanagement.domain.usecase.vehicle.GetVehiclesByClientUseCase
 import com.hotguy.workshopmanagement.domain.usecase.vehicle.GetVehiclesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
@@ -68,9 +70,12 @@ class VehicleListViewModel @Inject constructor(
      */
     private fun resolveOwnClientId(): Long? = null
 
-    val vehicles: Flow<PagingData<Vehicle>> by lazy {
-        val cid = _uiState.value.clientId
-        if (cid == null) getVehiclesUseCase()
-        else getVehiclesByClientUseCase(cid)
-    }.let { it.cachedIn(viewModelScope) }
+    @OptIn(ExperimentalCoroutinesApi::class)
+    val vehicles: Flow<PagingData<Vehicle>> = _uiState
+        .flatMapLatest { state ->
+            val cid = state.clientId
+            if (cid == null) getVehiclesUseCase()
+            else getVehiclesByClientUseCase(cid)
+        }
+        .cachedIn(viewModelScope)
 }

@@ -54,8 +54,8 @@ class TaskDetailViewModel @Inject constructor(
         viewModelScope.launch {
             val role = sessionManager.currentRole ?: UserRole.MECHANIC
             getTaskByIdUseCase(taskId)
-                .onSuccess { _uiState.update { TaskDetailUiState.Success(it, role) } }
-                .onFailure { _uiState.update { TaskDetailUiState.Error(it.message ?: "Error") } }
+                .onSuccess { report -> _uiState.update { TaskDetailUiState.Success(report, role) } }
+                .onFailure { e -> _uiState.update { TaskDetailUiState.Error(e.message ?: "Error") } }
         }
     }
 

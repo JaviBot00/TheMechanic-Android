@@ -49,7 +49,9 @@ fun AppNavGraph(
     // Destino inicial: si ya hay sesión activa (tokens válidos del arranque
     // anterior), SessionManager los restaura antes de que se dibuje el NavHost
     // y sessionState ya llega como Authenticated aquí.
-    val startDestination: AppRoutes = when (val state = sessionState) {
+    // val startDestination: AppRoutes = when (val state = sessionState) {
+    // Más seguro — evita problemas de inferencia en NavHost
+    val startDestination: Any = when (val state = sessionState) {
         is SessionState.Unauthenticated -> AppRoutes.Login
         is SessionState.Authenticated   -> homeDestinationFor(state.role)
     }
@@ -68,7 +70,7 @@ fun AppNavGraph(
             com.hotguy.workshopmanagement.ui.auth.LoginScreen(
                 onLoginSuccess = { role ->
                     navController.navigate(homeDestinationFor(role)) {
-                        popUpTo(AppRoutes.Login) { NavOptionsBuilder.inclusive = true }
+                        popUpTo(AppRoutes.Login) { inclusive = true }
                     }
                 }
             )

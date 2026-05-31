@@ -43,8 +43,8 @@ class MechanicDetailViewModel @Inject constructor(
         viewModelScope.launch {
             val role = sessionManager.currentRole ?: UserRole.MECHANIC
             getMechanicByIdUseCase(mechanicId)
-                .onSuccess { _uiState.update { MechanicDetailUiState.Success(it, role) } }
-                .onFailure { _uiState.update { MechanicDetailUiState.Error(it.message ?: "Error") } }
+                .onSuccess { report -> _uiState.update { MechanicDetailUiState.Success(report, role) } }
+                .onFailure { e -> _uiState.update { MechanicDetailUiState.Error(e.message ?: "Error") } }
         }
     }
 
@@ -52,7 +52,7 @@ class MechanicDetailViewModel @Inject constructor(
         viewModelScope.launch {
             deleteMechanicUseCase(mechanicId)
                 .onSuccess { _events.emit(MechanicDetailEvent.DeletedSuccessfully) }
-                .onFailure { _uiState.update { MechanicDetailUiState.Error(it.message ?: "Error al eliminar") } }
+                .onFailure { e -> _uiState.update { MechanicDetailUiState.Error(e.message ?: "Error al eliminar") } }
         }
     }
 }

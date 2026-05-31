@@ -43,8 +43,8 @@ class DashboardViewModel @Inject constructor(
         viewModelScope.launch {
             val role = sessionManager.currentRole ?: UserRole.MECHANIC
             getSummaryReportUseCase()
-                .onSuccess { _uiState.update { DashboardUiState.Success(it, role) } }
-                .onFailure { _uiState.update { DashboardUiState.Error(it.message ?: "Error") } }
+                .onSuccess { report -> _uiState.update { DashboardUiState.Success(report, role) } }
+                .onFailure { e -> _uiState.update { DashboardUiState.Error(e.message ?: "Error") } }
         }
     }
 

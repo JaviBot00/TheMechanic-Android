@@ -75,7 +75,7 @@ class MechanicFormViewModel @Inject constructor(
                 createMechanicUseCase(s.name, s.surname1, s.surname2.ifBlank { null },
                     s.nif, s.email, s.telephone.ifBlank { null }, date, s.specialty)
             result.onSuccess { _events.emit(MechanicFormEvent.SavedSuccessfully) }
-                  .onFailure { _uiState.update { it.copy(errorMessage = it.message ?: "Error") } }
+                  .onFailure { e -> _uiState.update { it.copy(errorMessage = e.message ?: "Error") } }
             _uiState.update { it.copy(isLoading = false) }
         }
     }

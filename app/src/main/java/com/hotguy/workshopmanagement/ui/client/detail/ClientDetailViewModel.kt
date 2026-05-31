@@ -57,8 +57,8 @@ class ClientDetailViewModel @Inject constructor(
         viewModelScope.launch {
             val role = sessionManager.currentRole ?: UserRole.MECHANIC
             getClientByIdUseCase(clientId)
-                .onSuccess { _uiState.update { ClientDetailUiState.Success(it, role) } }
-                .onFailure { _uiState.update { ClientDetailUiState.Error(it.message ?: "Error") } }
+                .onSuccess { report -> _uiState.update { ClientDetailUiState.Success(report, role) } }
+                .onFailure { e -> _uiState.update { ClientDetailUiState.Error(e.message ?: "Error") } }
         }
     }
 
@@ -66,7 +66,7 @@ class ClientDetailViewModel @Inject constructor(
         viewModelScope.launch {
             deleteClientUseCase(clientId)
                 .onSuccess { _events.emit(ClientDetailEvent.DeletedSuccessfully) }
-                .onFailure { _uiState.update { ClientDetailUiState.Error(it.message ?: "Error al eliminar") } }
+                .onFailure { e -> _uiState.update { ClientDetailUiState.Error(e.message ?: "Error al eliminar") } }
         }
     }
 }

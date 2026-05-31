@@ -32,8 +32,8 @@ import javax.inject.Inject
 class MainActivity : ComponentActivity() {
 
     /**
-     * Inyectado por Hilt. Restaura el [SessionManager] a partir de los
-     * tokens cifrados en [TokenDataStore] al arrancar la app.
+     * Inyectado por Hilt. Restaura el [com.hotguy.workshopmanagement.di.SessionManager] a partir de los
+     * tokens cifrados en [com.hotguy.workshopmanagement.data.local.TokenDataStore] al arrancar la app.
      */
     @Inject
     lateinit var sessionRestoreUseCase: SessionRestoreUseCase
