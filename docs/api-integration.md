@@ -111,7 +111,7 @@ la última página cuando `content` viene vacío.
 
 ### Flujo de login
 
-```
+```cmd
 Cliente                           Servidor
   │                                  │
   ├── POST /auth/login ──────────────▶
@@ -132,7 +132,7 @@ Cliente                           Servidor
 
 Cada petición de red pasa por `AuthInterceptor`, que añade automáticamente:
 
-```
+```cmd
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xl...
 ```
 
@@ -140,7 +140,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xl...
 
 Cuando el servidor devuelve un 401, OkHttp llama a `TokenAuthenticator`:
 
-```
+```cmd
 Cliente                           Servidor
   │                                  │
   ├── GET /api/v1/clients ──────────▶
@@ -167,6 +167,7 @@ Cliente                           Servidor
 ```
 
 Si el refresh también falla (token expirado o revocado):
+
 - `TokenAuthenticator` limpia los tokens del DataStore.
 - Llama a `SessionManager.onLogout()`.
 - `NavViewModel` detecta el cambio de `SessionState` → `Unauthenticated`.
@@ -203,6 +204,7 @@ El backend devuelve errores en formato RFC 9457 (ProblemDetail):
 ```
 
 En el cliente, los repositorios envuelven las llamadas Retrofit en `runCatching`:
+
 - Si Retrofit lanza una excepción (de red, timeout, etc.) → `Result.failure(exception)`.
 - Si el servidor devuelve un código de error HTTP → Retrofit lanza `HttpException`.
 - Los ViewModels muestran el `message` de la excepción al usuario.

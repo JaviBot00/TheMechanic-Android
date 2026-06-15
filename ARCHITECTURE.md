@@ -8,7 +8,7 @@ Este documento describe las decisiones de arquitectura del proyecto, la estructu
 
 El proyecto combina **Clean Architecture** (tres capas con dependencias en una sola dirección) con el patrón **MVVM** en la capa de presentación. Es el estándar recomendado por Google para aplicaciones Android de producción en 2026.
 
-```
+```cmd
 ┌─────────────────────────────────────────┐
 │           UI / Presentación             │  Composables + ViewModels
 │         (depende de: Dominio)           │
@@ -30,7 +30,7 @@ La regla fundamental es que **las dependencias siempre apuntan hacia dentro**: l
 
 ## Estructura de carpetas
 
-```
+```cmd
 app/src/main/java/com/workshopmanagement/android/
 │
 ├── WorkshopManagementApp.kt       # Clase Application anotada con @HiltAndroidApp
@@ -138,7 +138,7 @@ app/src/main/java/com/workshopmanagement/android/
 
 Cada pantalla sigue exactamente el mismo patrón:
 
-```
+```cmd
 Usuario toca botón
        │
        ▼

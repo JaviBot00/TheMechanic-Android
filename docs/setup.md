@@ -32,6 +32,7 @@ api.base.url=http://TU_IP_LOCAL:8080/
 **¿Cómo saber tu IP local?**
 
 En Linux/macOS:
+
 ```bash
 ip route get 1 | awk '{print $7}'
 # o simplemente:
@@ -39,6 +40,7 @@ hostname -I | awk '{print $1}'
 ```
 
 En Windows:
+
 ```cmd
 ipconfig
 # Busca "Dirección IPv4" de tu adaptador de red activo
@@ -122,7 +124,7 @@ Deberías recibir una respuesta con `accessToken` y `refreshToken`.
 
 ## 7. Estructura del proyecto
 
-```
+```cmd
 workshop-management-android/
 ├── app/
 │   └── src/

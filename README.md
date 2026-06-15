@@ -44,9 +44,11 @@ Permite gestionar el ciclo completo de un taller: clientes, vehículos, mecánic
 
 1. Clona el repositorio
 2. Crea el fichero `local.properties` en la raíz del proyecto:
+
    ```properties
    api.base.url=http://TU_IP_LOCAL:8080/
    ```
+
 3. Sincroniza Gradle y ejecuta la app
 
 > Si usas el emulador de Android Studio, la IP del host es `10.0.2.2`.
